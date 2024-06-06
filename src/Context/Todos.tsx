@@ -61,19 +61,14 @@ export const TodosProvider=({children}:TodosProviderProps) =>{
         })
     }
 
-    const handleDelete=(id:string)=>{
-        setTodos((prev)=>
-        {
-            const newTodos=prev.map((item:Todo,index:number)=>{
-                if(item.id===id){
-                    prev.splice(index,1)
-                }
-                else return item
-            })
-            localStorage.setItem('todos',JSON.stringify(newTodos))
-            return newTodos
-        })
-    }
+    const handleDelete = (id: string) => {
+        setTodos((prev) => {
+            const newTodos = prev.filter((item: Todo) => item.id !== id);
+            localStorage.setItem('todos', JSON.stringify(newTodos));
+            return newTodos;
+        });
+    };
+    
 
     return <todosContext.Provider value={{todos,addTaskHandler,toggleTodoCompleted,handleDelete}}>
         {children}
